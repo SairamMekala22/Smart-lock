@@ -1,13 +1,36 @@
-const express=require('express');
-const path = require('path');
-const app=express();
-const bcrypt=require('body-praser');
-const cors=require('cors');
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const bcrypt = require('bcrypt');
 const { error } = require('console');
 const PORT=process.env.PORT || 3500;
 
 
+const app = express();
+app.use(bodyParser.json());
+// app.use(cors());
 
+// MongoDB Connection
+mongoose.connect("mongodb+srv://yashwanth:yash_2103@cluster0.bze5e.mongodb.net/connection?retryWrites=true&w=majority&appName=Cluster0", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+});
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+});
+
+// User Schema
+const userSchema = new mongoose.Schema({
+  username: { type: String, unique: true, required: true },
+  password: { type: String, required: true },
+  mobile: { type: String, required: true },
+  fullName: { type: String, required: true },
+});
+
+const User = mongoose.model('User', userSchema);
 
 
 // database
@@ -35,7 +58,7 @@ app.post('/signup',async(req,res)=>{
             }
             
         }
-        const exists=users.findOne(user => user.username === username);
+        const exists=await User.findOne(user => user.username === username);
 
         if(exists){
             return res.status(409).json({error: 'Username already exists.'});
