@@ -1,0 +1,52 @@
+body {
+    background-color: black;
+  }
+  
+  .custom-container {
+    max-width: 439px;
+    height: 260px;
+    border: 1px solid hsla(0, 0%, 0%, 0.829);
+    border-radius: 20px;
+    background-color: hsla(0, 0%, 50%, 0.264);
+    color: white;
+  }
+  
+  .form-control {
+    margin-left: 75px;
+  }
+  
+  .center-vertically {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    min-width: 100vw;
+  }
+  
+  .title {
+    margin: 1.5rem;
+    color: rgba(255, 255, 255, 0.815);
+    font-weight: bold;
+  }
+  
+  .formbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 160px;
+    font-size: large;
+  }
+  
+  .button {
+    align-items: center;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
