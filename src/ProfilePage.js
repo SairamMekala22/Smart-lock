@@ -8,7 +8,7 @@ const ProfilePage = () => {
   const handleEditProfile = () => {
     navigate("/edit-profile"); // Redirect to the Edit Profile Page
   };
-
+// const App = () => {
   return (
     <div className="profile-page">
       {/* Profile Header */}
@@ -36,6 +36,6 @@ const ProfilePage = () => {
       </div>
     </div>
   );
-};
+}
 
 export default ProfilePage;

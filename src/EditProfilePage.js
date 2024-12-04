@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./EditProfilePage.css";
-
+import { useNavigate } from "react-router-dom";
 const EditProfilePage = () => {
   const [formData, setFormData] = useState({
     username: "Username123",
@@ -22,6 +22,9 @@ const EditProfilePage = () => {
     console.log("Updated Profile Data:", formData);
     // Add logic to save updated data
     alert("Profile updated successfully!");
+  };
+  const handleEditProfile = () => {
+    // navigate("/profile"); // Redirect to the Edit Profile Page
   };
 
   return (
@@ -64,7 +67,7 @@ const EditProfilePage = () => {
             onChange={handleChange}
           />
         </label>
-        <button type="submit" className="save-button">
+        <button type="submit" className="save-button" onClick={handleEditProfile}>
           Save Changes
         </button>
       </form>

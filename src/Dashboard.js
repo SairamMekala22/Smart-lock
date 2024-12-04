@@ -47,7 +47,7 @@ const App = () => {
             alt="Avatar"
             className="avatar"
           />
-          <span className="username">Manu Arora</span>
+          <span className="username">User name</span>
         </div>
       </div>
 
@@ -88,14 +88,37 @@ const App = () => {
           </div>
           <div className="quickActions">
             <h2>System Status</h2>
+                <div class="recent_act">
+                <div>
+                  <span >Battery:</span>
+                  <span >75%</span>
+                </div>
+                <div>
+                  <span>Wi-Fi Signal:</span>
+                  <span >Strong</span>
+                </div>
+                <div>
+                  <span >Last Update:</span>
+                  <span >10 minutes ago</span>
+                </div>
+                <button class="buttonn">Check for Updates</button>
+                </div>
+                
           </div>
         </div>
         <div className="dashboard-content">
           <div className="quickActions">
-            <h2>Quick Actions</h2>
+            <h2>recent activities</h2>
+            <div class="recent_act">
+              <ul>
+                  <li>🔔 Door unlocked by Deekshitha (2 hours ago)</li>
+                  <li>🔔 Door locked automatically (4 hours ago)</li>
+                  <li>🔔 Battery low warning (1 day ago)</li>
+              </ul>
+            </div>
           </div>
           <div className="quickActions">
-            <h2>Quick Actions</h2>
+            <h2>Manage guests</h2>
           </div>
         </div>
       </div>
