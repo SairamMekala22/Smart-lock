@@ -43,8 +43,8 @@ const Login = () => {
               <input type="submit" value="owner login" />
             </div>
             <div className="links">
-              <a href="#">Forgot Password</a>
-              <a href="#">Signup</a>
+              <a href="forgot-password">Forgot Password</a>
+              <a href="signup">Signup</a>
             </div>
           </div>
 
