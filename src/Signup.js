@@ -7,7 +7,7 @@ function SignupForm() {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
-    mobile: '',
+    email: '',
     fullName: '',
   });
 
@@ -66,8 +66,8 @@ function SignupForm() {
             <div className="inputBx">
               <input
                 type="text"
-                name="fullName"
-                placeholder="Full Name"
+                name="email"
+                placeholder="Email"
                 value={formData.fullName}
                 onChange={handleChange}
               />
@@ -112,8 +112,8 @@ function SignupForm() {
             <div className="inputBx">
               <input
                 type="text"
-                name="fullName"
-                placeholder="Full Name"
+                name="email"
+                placeholder="Email"
                 value={formData.fullName}
                 onChange={handleChange}
               />

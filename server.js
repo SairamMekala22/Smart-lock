@@ -163,11 +163,48 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+import nodemailer from "nodemailer";
+import jwt from "jsonwebtoken";
 const User = require('./module/usermodule.js'); // Assuming you have a Mongoose schema defined
-
+const guser=require('./modules/guestuser.js')
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // allow your frontend's port
+  methods: ['GET','POST'],
+  credentials: true, // important for sessions/cookies
+}));
+
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'mendayash@gmail.com', // Your Gmail address
+    pass: 'vpaw rcvf lzgf ggds', // Your app password or Gmail password
+  },
+  tls: {
+    rejectUnauthorized: false // Allow self-signed certificates (use cautiously)
+  }
+});
+// Middleware to check authentication
+const authenticateUser = (req, res, next) => {
+  const token = req.headers['authorization']?.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ status: "not-authenticated" });
+  }
+  
+  jwt.verify(token, JWT_SECRET, async (err, decoded) => {
+    if (err) return res.status(401).json({ status: "not-authenticated" });
+    
+    req.user = await collection.findById(decoded.id); //await is used to pause the execution of an async function until a Promise is resolved or rejected.
+    next();
+  });
+};
+
+app.get("/authenticated", authenticateUser, (req, res) => {      //Uses the authenticateUser middleware to protect the /authenticated route.
+  res.json({ status: "authenticated", user: req.user });
+});
+
 
 // Signup Endpoint (Create User)
 // app.post("/signup", async (req, res) => {
@@ -197,6 +234,34 @@ app.post("/owner-signup", async (req, res) => {
       const existingUser = await User.findOne({ username });
       if (existingUser) {
         return res.status(400).json({ message: "Owner username already exists" });
+        
+      }
+      const hasUpper=/[A-Z]/.test(password);
+      const hasLower=/[a-z]/.test(password);
+      const hasNum=/\d/.test(password);
+      const splchar=/[!@#$%_]/.test(password);
+      const space=/\s/.test(password);
+      const length=password.length
+
+      if(length<8){
+        return res.status(400).json({valid:false,message:"password must be at least 8 characters"});
+      }
+      if(!hasUpper){
+        return res.status(400).json({valid:false,message:"password must contain atleast one uppecase letter"});
+      }
+      if(!hasLower){
+        return res.status(400).json({valid:false,message:"password cmust contain atleast one lowercase letter"});
+
+      }
+      if(!hasNum){
+          return res.status(400).json({valid:false,message:"password must contain atleast one number"});
+
+      }
+      if(!splchar){
+        return res.status(400).json({valid:false,message:"password must contain atleast one special character"});
+      }
+      if(space){
+        return res.status(400).json({valid:false,message:"password must not contain any spaces"});
       }
   
       // Hash password and create a new owner user
@@ -216,14 +281,42 @@ app.post("/owner-signup", async (req, res) => {
   
     try {
       // Check if the user already exists
-      const existingUser = await User.findOne({ username });
+      const existingUser = await guser.findOne({ username });
       if (existingUser) {
         return res.status(400).json({ message: "Guest username already exists" });
+      }
+      const hasUpper=/[A-Z]/.test(password);
+      const hasLower=/[a-z]/.test(password);
+      const hasNum=/\d/.test(password);
+      const splchar=/[!@#$%_]/.test(password);
+      const space=/\s/.test(password);
+      const length=password.length
+
+      if(length<8){
+        return res.status(400).json({valid:false,message:"password must be at least 8 characters"});
+        
+      }
+      if(!hasUpper){
+        return res.status(400).json({valid:false,message:"password must contain atleast one uppecase letter"});
+      }
+      if(!hasLower){
+        return res.status(400).json({valid:false,message:"password cmust contain atleast one lowercase letter"});
+
+      }
+      if(!hasNum){
+          return res.status(400).json({valid:false,message:"password must contain atleast one number"});
+
+      }
+      if(!splchar){
+        return res.status(400).json({valid:false,message:"password must contain atleast one special character"});
+      }
+      if(space){
+        return res.status(400).json({valid:false,message:"password must not contain any spaces"});
       }
   
       // Hash password and create a new guest user
       const hashedPassword = await bcrypt.hash(password, 10);
-      const newGuest = new User({ username, password: hashedPassword, mobile, fullName });
+      const newGuest = new guser({ username, password: hashedPassword, mobile, fullName });
       await newGuest.save();
   
       res.status(201).json({ message: "Guest registered successfully" });
@@ -285,7 +378,7 @@ app.post("/owner-login", async (req, res) => {
   
     try {
       // Check if the user exists
-      const user = await User.findOne({ username });
+      const user = await guser.findOne({ username });
       if (!user) {
         return res.status(404).json({ message: "Guest not found" });
       }

@@ -167,7 +167,7 @@ function Login() {
             </div>
             <div className="links">
               <a href="#">Forgot Password</a>
-              <Link to ="/signup"></Link>
+              <a href="signup">Signup</a>
             </div>
           </form>
         </div>

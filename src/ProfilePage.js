@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProfilePage.css"; // Import the CSS file
+// import User  from "../module/usermodule";
+const User=require("../module/usermodule");
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -21,13 +23,13 @@ const ProfilePage = () => {
         <div className="profile-details">
           <h1 className="username">Username123</h1>
           <p className="detail">
-            <strong>Full Name:</strong> John Doe
+            <strong>Full Name:</strong> {User.username}
+          </p>
+          <p className="detail"> {User.mobile}
+            <strong>Phone:</strong> 
           </p>
           <p className="detail">
-            <strong>Phone:</strong> +1234567890
-          </p>
-          <p className="detail">
-            <strong>Email:</strong> johndoe@email.com
+            <strong>Email:</strong> 
           </p>
           <button className="edit-button" onClick={handleEditProfile}>
             Edit Profile
