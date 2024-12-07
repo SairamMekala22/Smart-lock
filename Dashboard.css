@@ -1,0 +1,173 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+  overflow: hidden; /* Prevent scrolling if needed */
+}
+
+/* Container layout */
+.container {
+  display: flex;
+  height: 100vh;
+  margin: 0; /* Ensure no extra margin is added */
+}
+
+/* Sidebar */
+.sidebar {
+  width: 70px;
+  background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: width 0.3s;
+  position: fixed; /* Ensure sidebar stays fixed on the left */
+  top: 0;
+  left: 0;
+  bottom: 0; /* Ensure it takes up the full height */
+}
+
+.sidebar:hover {
+  width: 250px;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.logo-collapsed {
+  width: 40px;
+  height: 40px;
+  background: black;
+  border-radius: 50%;
+}
+
+.logo-text {
+  display: none;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.sidebar:hover .logo-text {
+  display: block;
+}
+
+.menu {
+  list-style: none;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.menu li {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.menu-label {
+  display: none;
+}
+
+.sidebar:hover .menu-label {
+  display: inline-block;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.username {
+  display: none;
+  margin-left: 10px;
+}
+
+.sidebar:hover .username {
+  display: inline-block;
+}
+
+/* Dashboard */
+.dashboard {
+  flex-grow: 1;
+  padding: 20px;
+  margin-left: 90px; /* Adjust this value to match the sidebar width */
+  transition: margin-left 0.3s ease-in-out ; /* Smooth transition for when sidebar expands */
+}
+
+.dashboard-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding:20px;
+}
+
+.quickActions {
+  width: 38vw;
+  height: 40vh;
+  background-color: rgb(150, 135, 135);
+  padding: 20px;
+  border-radius: 12px;
+}
+.sidebar:hover ~ .dashboard {
+  margin-left: 150px; /* Adjust margin for expanded sidebar */
+}
+
+.quickActions h2 {
+  text-align: center;
+}
+
+/* Lock Button */
+.lock-btn {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 150px;
+  height: 150px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin:10px;
+
+}
+
+.lock-btn h3 {
+  margin-bottom: 10px;
+}
+.recent_act{
+  color:black;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size:large;
+  font-weight: 550;
+  padding:30px;
+}
+.buttonn{
+  border-radius: 10px;
+  padding:10px;
+  margin:10px;
+}
+
