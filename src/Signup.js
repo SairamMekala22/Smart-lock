@@ -32,14 +32,15 @@ const Signup = () => {
           <div className="signup front">
             <h2>Sign-up</h2>
             <div className="inputBx">
-              <input type="text" placeholder="Mobile Number" />
-            </div>
-            <div className="inputBx">
-              <input type="text" placeholder="Full Name" />
-            </div>
-            <div className="inputBx">
               <input type="text" placeholder="Username" />
             </div>
+            <div className="inputBx">
+              <input type="text" placeholder="Email " />
+            </div>
+            <div className="inputBx">
+              <input type="text" placeholder="Mobile Number" />
+            </div>
+            
             <div className="inputBx">
               <input type="password" placeholder="Password" />
             </div>
