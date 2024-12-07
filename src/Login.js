@@ -18,7 +18,7 @@ const Login = () => {
           className="login-btn"
           onClick={() => setFlipped(true)}
         >
-          Guest Login
+          sign up
         </button>
       </div>
 
@@ -50,19 +50,24 @@ const Login = () => {
 
           {/* Guest Login */}
           <div className="login back">
-            <h2>Guest Login</h2>
+            <h2>Sign-up</h2>
             <div className="inputBx">
-              <input type="text" placeholder="Guest Username" />
+              <input type="text" placeholder="Mobile Number" />
             </div>
             <div className="inputBx">
-              <input type="password" placeholder="Guest Password" />
+              <input type="text" placeholder="Full Name" />
             </div>
             <div className="inputBx">
-              <input type="submit" value="Guest Login" />
+              <input type="text" placeholder="Username" />
+            </div>
+            <div className="inputBx">
+              <input type="password" placeholder="Password" />
+            </div>
+            <div className="inputBx">
+              <input type="submit" value="Sign Up" />
             </div>
             <div className="links">
-              <a href="#">Forgot Password</a>
-              <a href="#">Signup</a>
+              <a href="#">Account already exists? Back to login</a>
             </div>
           </div>
         </div>
