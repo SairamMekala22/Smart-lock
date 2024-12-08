@@ -6,6 +6,7 @@ import Dashboard from "./Dashboard";
 import Login from "./Login";
 // import Signup from "./Signup";
 import SignupForm from "./Signup";
+import OTPVerification from "./Resetpass";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/Dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/edit-profile" element={<EditProfilePage />} />
+        <Route path="/reset-password" element={<OTPVerification />} />
       </Routes>
     </Router>
   );

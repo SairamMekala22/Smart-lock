@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProfilePage.css"; // Import the CSS file
 // import User  from "../module/usermodule";
-const User=require("../module/usermodule");
+// const User=require("../module/usermodule");
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -23,9 +23,9 @@ const ProfilePage = () => {
         <div className="profile-details">
           <h1 className="username">Username123</h1>
           <p className="detail">
-            <strong>Full Name:</strong> {User.username}
+            <strong>Full Name:</strong> 
           </p>
-          <p className="detail"> {User.mobile}
+          <p className="detail"> 
             <strong>Phone:</strong> 
           </p>
           <p className="detail">

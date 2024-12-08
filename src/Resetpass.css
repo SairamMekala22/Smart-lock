@@ -1,58 +1,110 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: black;
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #333;
 }
 
-.custom-container {
-  max-width: 530px;
-  height: 375px;
-  border-radius: 20px;
-  background-color: hsla(0, 0%, 50%, 0.264);
-}
-
-.form-control {
-  margin-left: 75px;
-}
-
+/* Center vertically */
 .center-vertically {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  min-width: 100vw;
+  height: 100%;
 }
 
+/* Container */
+.custom-container {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 25px;
+  width: 360px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Title */
 .title {
-  margin: 1.5rem;
-  color: rgba(255, 255, 255, 0.815);
+  font-size: 1.6em;
+  margin-bottom: 15px;
   font-weight: bold;
+  color: #2c3e50;
 }
 
+/* Form box */
 .formbox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 30px;
-  height: 245px;
+  margin-top: 20px;
 }
 
-.button {
-  margin-left: 65px;
+/* Form items */
+.form-item {
+  margin-bottom: 15px;
+  text-align: left;
 }
 
-.btn-primary {
-  background-color: #007bff;
+.form-item label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9em;
+  color: #5f6a79;
+}
+
+.form-item input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1em;
+  color: #333;
+  transition: border-color 0.2s ease;
+}
+
+.form-item input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 12px;
+  background: #007bff;
   border: none;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
-}
-
-.texts {
+  border-radius: 6px;
   color: white;
-  font-size: 16px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
+button:hover {
+  background: #0056b3;
+}
 
+button:disabled {
+  background: #ccd1d9;
+  cursor: not-allowed;
+}
 
+/* Message */
+.message {
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: #e74c3c;
+}
+
+.message.success {
+  color: #27ae60;
+}

@@ -68,7 +68,7 @@ function SignupForm() {
                 type="text"
                 name="email"
                 placeholder="Email"
-                value={formData.fullName}
+                value={formData.email}
                 onChange={handleChange}
               />
             </div>
@@ -114,7 +114,7 @@ function SignupForm() {
                 type="text"
                 name="email"
                 placeholder="Email"
-                value={formData.fullName}
+                value={formData.email}
                 onChange={handleChange}
               />
             </div>
