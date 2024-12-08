@@ -1,0 +1,73 @@
+/* General Styling */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+/* Profile Header */
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #ddd;
+  object-fit: cover;
+}
+
+.profile-details {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.username {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px; /* Increased space below username */
+}
+
+.detail {
+  font-size: 16px;
+  color: #555;
+  margin: 10px 0; /* Increased padding between details */
+}
+
+.edit-button {
+  margin-top: 20px; /* Slightly more space above button */
+  padding: 10px 20px; /* Slightly larger button for better appearance */
+  font-size: 14px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
+
