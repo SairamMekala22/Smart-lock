@@ -22,11 +22,107 @@ const transporter = nodemailer.createTransport({
     user: 'smartshield22@gmail.com', // Your Gmail address
     pass: 'bdht uuiv efbd corr', // Your app password or Gmail password
   },
-  tls: {
-    rejectUnauthorized: false // Allow self-signed certificates (use cautiously)
-  }
+  // tls: {
+  //   rejectUnauthorized: false // Allow self-signed certificates (use cautiously)
+  // }
+  debug:true,
 });
 // Middleware to check authentication
+// const authenticateUser = (req, res, next) => {
+//   const token = req.headers['authorization']?.split(' ')[1];
+//   if (!token) {
+//     return res.status(401).json({ status: "not-authenticated" });
+//   }
+  
+//   jwt.verify(token, JWT_SECRET, async (err, decoded) => {
+//     if (err) return res.status(401).json({ status: "not-authenticated" });
+    
+//     req.user = await collection.findById(decoded.id); //await is used to pause the execution of an async function until a Promise is resolved or rejected.
+//     next();
+//   });
+// };
+
+// app.get("/authenticated", authenticateUser, (req, res) => {      //Uses the authenticateUser middleware to protect the /authenticated route.
+//   res.json({ status: "authenticated", user: req.user });
+// });
+
+// // Temporary store for OTPs (use a database or cache in production)
+// const otpStore = {};
+
+// // Generate and send OTP
+// app.post("/send-otp", async (req, res) => {
+//   const { email } = req.body;
+//   const existingEmail=await User.findOne({email});
+
+//   try {
+
+//     if (!email) {
+//       return res.status(400).json({ message: "Email is required" });
+//     }
+//     if (!existingEmail) {
+//       return res.status(400).json({ message: "Email is not registered" });
+//     }
+
+//     // Generate a 6-digit OTP
+//     const otp = crypto.randomInt(100000, 999999).toString();
+
+//     // Store OTP temporarily (associate with the email)
+//     otpStore[email] = otp;
+
+//     // Send OTP via email
+//     const mailOptions = {
+//       from: "smartshield22@gmail.com",
+//       to: email,
+//       subject: "Your OTP Code",
+//       text: `Your OTP code is: ${otp}. It will expire in 5 minutes.`,
+//     };
+
+//     await transporter.sendMail(mailOptions);
+//     res.status(200).json({ message: "OTP sent successfully" });
+
+//     // Clear OTP after 10 minutes
+//     setTimeout(() => delete otpStore[email], 5 * 60 * 1000);
+//   } catch (error) {
+//     console.error("Error sending OTP:", error);
+//     res.status(500).json({ message: "Failed to send OTP", error: error.message });
+//   }
+// });
+
+// // otp verification
+// app.post("/verify-otp", async (req, res) => {
+//   const { email, otp, newPassword } = req.body;
+
+//   try {
+//     if (!otp || !newPassword) {
+//       return res.status(400).json({ message: "OTP and new password are required" });
+//     }
+
+//     // Check if the OTP is correct
+//     if (otpStore[email] !== otp) {
+//       return res.status(400).json({ message: "Invalid OTP" });
+//     }
+
+//     // Delete OTP after successful verification
+//     delete otpStore[email];
+
+//     // Hash the new password
+//     const hashedPassword = await bcrypt.hash(newPassword, 10);  
+
+//     // Update the user's password in the database
+//     const user = await User.findOne({ email });
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     user.password = hashedPassword;
+//     await user.save();
+
+//     res.status(200).json({ message: "Password reset successfully" });
+//   } catch (error) {
+//     console.error("Error resetting password:", error);
+//     res.status(500).json({ message: "Failed to reset password", error: error.message });
+//   }
+// });
 const authenticateUser = (req, res, next) => {
   const token = req.headers['authorization']?.split(' ')[1];
   if (!token) {
@@ -52,6 +148,7 @@ const otpStore = {};
 app.post("/send-otp", async (req, res) => {
   const { email } = req.body;
   const existingEmail=await User.findOne({email});
+  // const existinggEmail=await guser.findOne({email});
 
   try {
 
@@ -73,21 +170,20 @@ app.post("/send-otp", async (req, res) => {
       from: "smartshield22@gmail.com",
       to: email,
       subject: "Your OTP Code",
-      text: `Your OTP code is: ${otp}. It will expire in 5 minutes.`,
+      text: `Your OTP code is: ${otp}. It will expire in 10 minutes.`,
     };
 
     await transporter.sendMail(mailOptions);
     res.status(200).json({ message: "OTP sent successfully" });
 
     // Clear OTP after 10 minutes
-    setTimeout(() => delete otpStore[email], 5 * 60 * 1000);
+    setTimeout(() => delete otpStore[email], 10 * 60 * 1000);
   } catch (error) {
     console.error("Error sending OTP:", error);
     res.status(500).json({ message: "Failed to send OTP", error: error.message });
   }
 });
 
-// otp verification
 app.post("/verify-otp", async (req, res) => {
   const { email, otp, newPassword } = req.body;
 
@@ -105,7 +201,7 @@ app.post("/verify-otp", async (req, res) => {
     delete otpStore[email];
 
     // Hash the new password
-    const hashedPassword = await bcrypt.hash(newPassword, 10);  
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
 
     // Update the user's password in the database
     const user = await User.findOne({ email });
@@ -122,6 +218,7 @@ app.post("/verify-otp", async (req, res) => {
     res.status(500).json({ message: "Failed to reset password", error: error.message });
   }
 });
+
 
 
 app.post("/signup", async (req, res) => {
