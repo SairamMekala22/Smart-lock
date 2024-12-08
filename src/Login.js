@@ -136,7 +136,7 @@ function LoginSignup() {
         <div className={`login-container ${isFlipped ? "isFlipped" : ""}`}>
           {/* Login Form */}
           <form className="login front" onSubmit={(e) => handleSubmit(e, false)}>
-            <h2>Owner Login</h2>
+            
             <div className="inputBx">
               <input
                 type="text"
@@ -158,14 +158,14 @@ function LoginSignup() {
             <div className="inputBx">
               <input type="submit" value="Login" />
             </div>
-            {/* <div className="links">
-            <a href="signup">Signup</a>
-            </div> */}
+            <div className="links">
+            <a href="reset-password">Forgot password?</a>
+            </div>
           </form>
 
           {/* Signup Form */}
           <form className="login back" onSubmit={(e) => handleSubmit(e, true)}>
-            <h2>Signup</h2>
+            
             <div className="inputBx">
               <input
                 type="text"
