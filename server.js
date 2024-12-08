@@ -20,7 +20,7 @@ const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
     user: 'smartshield22@gmail.com', // Your Gmail address
-    pass: 'qhmn bogp xbnq owba', // Your app password or Gmail password
+    pass: 'bdht uuiv efbd corr', // Your app password or Gmail password
   },
   tls: {
     rejectUnauthorized: false // Allow self-signed certificates (use cautiously)
@@ -51,7 +51,7 @@ const otpStore = {};
 // Generate and send OTP
 app.post("/send-otp", async (req, res) => {
   const { email } = req.body;
-  // const existingEmail=await User.findOne({email});
+  const existingEmail=await User.findOne({email});
 
   try {
 
