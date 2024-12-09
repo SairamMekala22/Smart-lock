@@ -1,18 +1,80 @@
-import React, { useState } from "react";
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
+// import "./Dashboard.css";
+
+// const Dashboard = () => {
+//   const [isLocked, setIsLocked] = useState(true);
+//   const [user, setUser] = useState(null);
+//   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+//   useEffect(() => {
+//     const token = localStorage.getItem("token");
+
+//     if (!token) {
+//       alert("You must log in first!");
+//       window.location.href = "/"; // Redirect to login page
+//     } else {
+//       // Verify token and fetch user info
+//       axios
+//         .get("http://localhost:5000/authenticated", {
+//           headers: { Authorization: `Bearer ${token}` },
+//         })
+//         .then((response) => {
+//           setUser(response.data.user);
+//           setIsAuthenticated(true);
+//         })
+//         .catch((error) => {
+//           console.error("Authentication failed:", error.response?.data || error);
+//           alert("Session expired. Please log in again.");
+//           localStorage.removeItem("token");
+//           window.location.href = "/"; // Redirect to login page
+//         });
+//     }
+//   }, []);
+
+//   const toggleLock = () => {
+//     setIsLocked(!isLocked);
+//   };
+
+//   const handleLogout = () => {
+//     localStorage.clear(); // Clear all localStorage
+//     alert("You have been logged out!");
+//     window.location.href = "/"; // Redirect to login page
+//   };
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./Dashboard.css";
 
-const App = () => {
-  const [lockedDoors, setLockedDoors] = useState({
-    "Main Door": true,
-    "Door - 1": true,
-    "Door - 2": true,
-  });
+function Dashboard() {
+  const [isLocked, setIsLocked] = useState(true);
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const toggleLock = (door) => {
-    setLockedDoors((prevState) => ({
-      ...prevState,
-      [door]: !prevState[door],
-    }));
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/authenticated", { withCredentials: true })
+      .then((response) => {
+        if (response.data.isAuthenticated) {
+          setUser(response.data.user);
+        } else {
+          alert("Session expired. Please log in.");
+          window.location.href = "/";
+        }
+      })
+      .catch(() => {
+        alert("Authentication error");
+        window.location.href = "/";
+      });
+  }, []);
+
+  const handleLogout = () => {
+    axios.post("http://localhost:5000/logout", {}, { withCredentials: true }).then(() => {
+      alert("Logged out successfully");
+      window.location.href = "/";
+    });
+  };
+  const toggleLock = () => {
+    setIsLocked(!isLocked);
   };
 
   return (
@@ -36,7 +98,7 @@ const App = () => {
             <i className="fas fa-cog"></i>
             <span className="menu-label">Settings</span>
           </li>
-          <li>
+          <li onClick={handleLogout}>
             <i className="fas fa-sign-out-alt"></i>
             <span className="menu-label">Logout</span>
           </li>
@@ -47,83 +109,57 @@ const App = () => {
             alt="Avatar"
             className="avatar"
           />
-          <span className="username">User name</span>
+          <span className="username">{user ? user.username : "Loading..."}</span>
         </div>
       </div>
 
-      {/* Dashboard */}
-      <div className="dashboard">
-        <div className="dashboard-content">
-          <div className="quickActions">
-            <h2>Quick Actions</h2>
-            <div className="door">
-              {Object.keys(lockedDoors).map((door, index) => (
-                <button
-                  key={index}
-                  className="lock-btn"
-                  onClick={() => toggleLock(door)}
-                >
-                  <h3>{door}</h3>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="36"
-                    height="36"
-                    fill="currentColor"
-                    className={`bi ${
-                      lockedDoors[door] ? "bi-lock-fill" : "bi-unlock-fill"
-                    }`}
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d={
-                        lockedDoors[door]
-                          ? "M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"
-                          : "M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m-4 6v4h8V9a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z"
-                      }
-                    />
-                  </svg>
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="quickActions">
-            <h2>System Status</h2>
-                <div class="recent_act">
-                <div>
-                  <span >Battery:</span>
-                  <span >75%</span>
-                </div>
-                <div>
-                  <span>Wi-Fi Signal:</span>
-                  <span >Strong</span>
-                </div>
-                <div>
-                  <span >Last Update:</span>
-                  <span >10 minutes ago</span>
-                </div>
-                <button class="buttonn">Check for Updates</button>
-                </div>
-                
-          </div>
+      {/* Dashboard Content */}
+      <div className="dashboard-content">
+        <h1>Welcome to your Dashboard</h1>
+        {user ? (
+          <p>Welcome, {user.username}</p>
+        ) : (
+          <p>Loading user information...</p>
+        )}
+
+        <div className="quick-actions">
+          <h3>Quick Actions</h3>
+          <button className="action-button" onClick={toggleLock}>
+            Main Door
+            <img
+              src={
+                isLocked
+                  ? "https://cdn-icons-png.flaticon.com/512/3064/3064197.png"
+                  : "https://cdn-icons-png.flaticon.com/512/3064/3064237.png"
+              }
+              alt={isLocked ? "Lock Icon" : "Unlock Icon"}
+              className="button-icon"
+            />
+          </button>
         </div>
-        <div className="dashboard-content">
-          <div className="quickActions">
-            <h2>recent activities</h2>
-            <div class="recent_act">
-              <ul>
-                  <li>🔔 Door unlocked by Deekshitha (2 hours ago)</li>
-                  <li>🔔 Door locked automatically (4 hours ago)</li>
-                  <li>🔔 Battery low warning (1 day ago)</li>
-              </ul>
-            </div>
-          </div>
-          <div className="quickActions">
-            <h2>Manage guests</h2>
-          </div>
+
+        <div className="recent-activities">
+          <h3>Recent Activities</h3>
+          <ul>
+            <li>🔔 Door unlocked by Deekshitha (2 hours ago)</li>
+            <li>🔔 Door locked automatically (4 hours ago)</li>
+            <li>🔔 Battery low warning (1 day ago)</li>
+          </ul>
+        </div>
+
+        <div className="cam-view">
+          <h3>Cam View</h3>
+          <img
+            className="cam"
+            src="http://192.168.0.112/"
+            width="778"
+            height="883"
+            alt="Live Stream"
+          />
         </div>
       </div>
     </div>
   );
 };
 
-export default App;
+export default Dashboard;
