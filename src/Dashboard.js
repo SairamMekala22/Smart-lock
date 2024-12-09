@@ -1,17 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
 
+const ESP_BASE_URL = "http://192.168.142.106"; // Replace with your ESP's IP address
+
 const Dashboard = () => {
-  const [isLocked, setIsLocked] = useState(true);
+  // const [isLocked, setIsLocked] = useState(true);
+  const [isLocked, setisLocked] = useState(false);
 
+  // Fetch initial states on load
+  useEffect(() => {
+    fetchLockStatus();
+  }, []);
 
-  const toggleLock = () => {
-    setIsLocked(!isLocked);
+  const fetchLockStatus = async () => {
+    try {
+      const response = await fetch(`${ESP_BASE_URL}/lock/status`);
+      const data = await response.json();
+      setisLocked(data.state === 1);
+    } catch (error) {
+      console.error("Failed to fetch lock status:", error);
+    }
   };
+
+
+
+  const toggleLock = async () => {
+    try {
+      const newState = !isLocked ? "1" : "0";
+      const response = await fetch(`${ESP_BASE_URL}/lock/toggle`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ state: newState }),
+      });
+      const data = await response.json();
+      setisLocked(data.state === 1);
+    } catch (error) {
+      console.error("Failed to toggle lock:", error);
+    }
+  };
+
 
   return (
     <div className="container">
-      {/* Sidebar */}
       <div className="sidebar">
         <div className="sidebar-header">
           <div className="logo-collapsed"></div>
@@ -36,47 +66,42 @@ const Dashboard = () => {
           </li>
         </ul>
         <div className="sidebar-footer">
-          <img
-            src="https://assets.aceternity.com/manu.png"
+          {/* <img
+            src=""
             alt="Avatar"
             className="avatar"
-          />
+          /> */}
           <span className="username">User name</span>
         </div>
       </div>
-
-      {/* Dash-content */}
-      <div>
-        <div className="dash-content">
-          <h3>Quick actions</h3>
-          <button className="action-button" onClick={toggleLock}>
-            Main Door
-            <img
-              src={
-                isLocked
-                  ? "https://cdn-icons-png.flaticon.com/512/3064/3064197.png" // Lock icon
-                  : "https://cdn-icons-png.flaticon.com/512/3064/3064237.png" // Unlock icon
-              }
-              alt={isLocked ? "Lock Icon" : "Unlock Icon"}
-              className="button-icon"
-            />
-          </button>
-        </div>
-        <div className="dash-content">
-          <h3>Recent Activities</h3>
-          <div className="recent_act">
-            <ul>
-              <li>🔔 Door unlocked by Deekshitha (2 hours ago)</li>
-              <li>🔔 Door locked automatically (4 hours ago)</li>
-              <li>🔔 Battery low warning (1 day ago)</li>
-            </ul>
-          </div>
-        </div>
-      </div>     
-      <div className="camview">
-                  <h3>Cam view</h3>
-          <img className="cam" src="http://192.168.0.112/" width="778" height="883" alt="live stream"></img>
-
+      <div className="dashboard-content">
+       <div class="dash-info">
+           <div className="dash-content">
+             <h3>Control Devices</h3>
+               <button className="action-button" onClick={toggleLock}>
+                 Lock: {isLocked ? "ON" : "OFF"}
+               </button>
+           </div>
+           <div className="dash-content">
+             <h3>Recent Activities</h3>
+             <div className="recent_act">
+               <ul>
+               <li>🔔 Door unlocked by Deekshitha (2 hours ago)</li>
+               <li>🔔 Door locked automatically (4 hours ago)</li>
+               <li>🔔 Battery low warning (1 day ago)</li>
+               </ul>
+             </div>
+           </div>
+       </div>
+       <div className="camview">
+         <h3>Cam view</h3>
+         <img
+           className="cam"
+           src="http://192.168.0.112/" // Replace with your camera stream URL
+           width="778"
+           height="883"
+           alt="Live stream" />
+       </div>
       </div>
     </div>
   );
