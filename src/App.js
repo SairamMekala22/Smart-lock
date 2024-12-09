@@ -10,7 +10,7 @@ import PrivateRoute from "./auth/privateRoute"; // import your PrivateRoute
 
 function App() {
   return (
-    <AuthProvider>
+    
       <Router>
         <Routes>
           <Route path="/" element={<LoginSignup />} />
@@ -20,23 +20,23 @@ function App() {
         
           <Route
               path="/dashboard"  
-              element={<PrivateRoute><Dashboard /></PrivateRoute>  } 
+              element={ <Dashboard /> } 
           />
 
           <Route
               path="/profile"  
-              element={<PrivateRoute><ProfilePage /></PrivateRoute>  } 
+              element={ <ProfilePage /> } 
           />
 
           <Route
               path="edit-profile"  
-              element={<PrivateRoute><EditProfilePage /></PrivateRoute>  } 
+              element={ <EditProfilePage /> } 
           />
           {/* <PrivateRoute path="/profile" element={<ProfilePage />} />
           <PrivateRoute path="/edit-profile" element={<EditProfilePage />} /> */}
         </Routes>
       </Router>
-    </AuthProvider>
+    
   );
 }
 
