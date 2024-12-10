@@ -5,7 +5,7 @@ import os
 
 app = Flask(__name__)
 
-ESP32_URL = "http://192.168.0.112/capture"  # Replace <ESP32-IP> with the ESP32's IP address
+ESP32_URL = "http://192.168.13.208/capture"  # Replace <ESP32-IP> with the ESP32's IP address
 REFERENCE_IMAGE = "./ramCharan.jpg"  # Path to the reference image
 
 @app.route('/compare_faces', methods=['GET'])
