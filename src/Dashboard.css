@@ -67,7 +67,10 @@ body {
 .sidebar:hover .logo-text {
   display: block;
 }
-
+.icon-section{
+  display:flex;
+  justify-content:center;
+}
 .menu {
   list-style: none;
   margin-top: 20px;
@@ -76,15 +79,15 @@ body {
 
 .menu li {
   display: flex;
-  align-items: center;
   padding-bottom: 40px;
   gap: 10px;
   cursor: pointer;
 }
-
 .menu-label {
   display: none;
   color: black; 
+  font-weight: 20px;
+  font-size: 18px;
 }
 
 .sidebar:hover .menu-label {
@@ -133,7 +136,9 @@ body {
   justify-content: flex-start; /* Align items at the top */
   align-items: center; /* Center items horizontally */
 }
-
+.dash-content h3{
+  font-size: 30px;
+}
 .action-button {
   display: flex;
   flex-direction: column; /* Stack text and logo vertically */
