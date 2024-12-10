@@ -288,7 +288,7 @@ app.post("/owner-login", async (req, res) => {
         return res.status(401).json({ message: "Invalid credentials" });
       }
   
-      res.status(200).json({ message: "Owner login successful", user });
+      res.status(200).json({ message: "Owner login successful", loggedIn: true ,user });
     } catch (error) {
       console.error("Error during owner login:", error);
       res.status(500).json({ message: "Error logging in", error: error.message });
