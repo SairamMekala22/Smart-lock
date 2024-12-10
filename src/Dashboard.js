@@ -22,6 +22,7 @@ const Dashboard = () => {
       console.error("Failed to fetch lock status:", error);
     }
   };
+  
 
   const toggleLock = async () => {
     try {
