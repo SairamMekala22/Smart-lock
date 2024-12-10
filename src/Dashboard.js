@@ -6,7 +6,7 @@ const ESP_BASE_URL = "http://192.168.142.106";
 
 const Dashboard = () => {
   // const [isLocked, setIsLocked] = useState(true);
-  const [isLocked, setisLocked] = useState(false);
+  let [isLocked, setisLocked] = useState(false);
 
   // Fetch initial states on load
   useEffect(() => {
@@ -90,7 +90,7 @@ const Dashboard = () => {
              <div className="recent_act">
              <img
            className="cam"
-           src="http://192.168.0.112/" // Replace with your camera stream URL
+           src="http://192.168.13.208/capture" // Replace with your camera stream URL
            width="778"
            height="883"
            alt="Live stream" />
