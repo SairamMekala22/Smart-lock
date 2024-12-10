@@ -86,6 +86,7 @@ body {
   
   .front {
     transform: rotateY(0deg);
+    padding:60px;
   }
   
   .back {

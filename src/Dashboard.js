@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
 
-const ESP_BASE_URL = "http://192.168.142.106"; // Replace with your ESP's IP address
+const FLASK_BASE_URL = "http://localhost:5000";
+const ESP_BASE_URL = "http://192.168.142.106";
 
 const Dashboard = () => {
   // const [isLocked, setIsLocked] = useState(true);
@@ -23,9 +24,11 @@ const Dashboard = () => {
   };
 
 
-
   const toggleLock = async () => {
     try {
+      const flaskResponse = await fetch(`${FLASK_BASE_URL}/compare_faces`);
+      const flaskData = await flaskResponse.json();
+      isLocked = flaskData.vreified
       const newState = !isLocked ? "1" : "0";
       const response = await fetch(`${ESP_BASE_URL}/lock/toggle`, {
         method: "POST",
@@ -38,7 +41,7 @@ const Dashboard = () => {
       console.error("Failed to toggle lock:", error);
     }
   };
-  return (
+    return (
     <div className="container">
       <div className="sidebar">
         <div className="sidebar-header">
@@ -83,24 +86,16 @@ const Dashboard = () => {
                </button>
            </div>
            <div className="dash-content">
-             <h3>Recent Activities</h3>
+             <h3>Cam View</h3>
              <div className="recent_act">
-               <ul>
-               <li>🔔 Door unlocked by Deekshitha (2 hours ago)</li>
-               <li>🔔 Door locked automatically (4 hours ago)</li>
-               <li>🔔 Battery low warning (1 day ago)</li>
-               </ul>
-             </div>
-           </div>
-       </div>
-       <div className="camview">
-         <h3>Cam view</h3>
-         <img
+             <img
            className="cam"
            src="http://192.168.0.112/" // Replace with your camera stream URL
            width="778"
            height="883"
            alt="Live stream" />
+             </div>
+           </div>
        </div>
       </div>
     </div>

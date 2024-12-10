@@ -9,7 +9,7 @@ body {
   display: flex;
   min-height: 100vh;
   background-color: #f4f4f4;
-  /* overflow: hidden; Prevent scrolling if needed */
+   /* overflow: hidden; Prevent scrolling if needed */ 
 }
 .container {
   display: flex;
