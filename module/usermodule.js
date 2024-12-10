@@ -1,5 +1,8 @@
-const { timeStamp } = require('console');
+// const { timeStamp } = require('console');
 const mongoose=require('mongoose');
+
+// import mongoose from 'mongoose';
+
 mongoose.connect("mongodb+srv://yashwanth:yash_2103@cluster0.bze5e.mongodb.net/input?retryWrites=true&w=majority&appName=Cluster0")
 // .then(() => console.log('Connected to MongoDB'))
 .catch(()=>{
@@ -26,7 +29,7 @@ const userSchema = new mongoose.Schema({
     resetTokenExpiry: Date,
     googleId: String,
   
-}, { timestamps: true });
+},);
 
 const User = mongoose.model('User', userSchema);
 module.exports=User;

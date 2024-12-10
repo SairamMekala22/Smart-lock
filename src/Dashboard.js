@@ -54,7 +54,7 @@ const Dashboard = () => {
           </li>
           <li>
             <i className="fas fa-user"></i>
-            <span className="menu-label">Profile</span>
+            <a href="profile"><span className="menu-label">Profile</span></a>
           </li>
           <li>
             <i className="fas fa-cog"></i>
@@ -62,7 +62,7 @@ const Dashboard = () => {
           </li>
           <li>
             <i className="fas fa-sign-out-alt"></i>
-            <span className="menu-label">Logout</span>
+            <a href="/"><span className="menu-label">Logout</span></a>
           </li>
         </ul>
         <div className="sidebar-footer">

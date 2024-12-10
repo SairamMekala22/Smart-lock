@@ -271,12 +271,13 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-  
+let acc=null;
 app.post("/owner-login", async (req, res) => {
     const { username, password } = req.body;
   
     try {
       // Check if the user exists
+      acc=await User.findOne({username});
       const user = await User.findOne({ username });
       if (!user) {
         return res.status(404).json({ message: "Owner not found" });
@@ -294,6 +295,15 @@ app.post("/owner-login", async (req, res) => {
       res.status(500).json({ message: "Error logging in", error: error.message });
     }
   });
+  app.get("/profile",async(req,res)=>{
+    // const user = await User.findOne({ username });
+    
+    // const user = await User.findById(req.session.username);
+    // if(!user){
+    //   return res.status(404).send('User not found');
+    // }
+    res.json(acc);
+  })
   
   
 app.listen(5000, 'localhost', () => {

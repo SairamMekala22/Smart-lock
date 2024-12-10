@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProfilePage.css"; // Import the CSS file
+// import usermodule from "./module/usermodule";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -19,9 +20,9 @@ const ProfilePage = () => {
           className="profile-image"
         />
         <div className="profile-details">
-          <h1 className="username">Username123</h1>
+          <h1 className="username">Username123</h1>Ramcharan
           <p className="detail">
-            <strong>Full Name:</strong> John Doe
+            <strong>Full Name:</strong> 
           </p>
           <p className="detail">
             <strong>Phone:</strong> +1234567890
