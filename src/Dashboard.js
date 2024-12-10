@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
 
+const FLASK_BASE_URL = "http://localhost:5000";
 const ESP_BASE_URL = "http://192.168.142.106"; // Replace with your ESP's IP address
 
 const Dashboard = () => {
@@ -22,10 +23,11 @@ const Dashboard = () => {
     }
   };
 
-
-
   const toggleLock = async () => {
     try {
+      const flaskResponse = await fetch(`${FLASK_BASE_URL}/compare_faces`);
+      const flaskData = await flaskResponse.json();
+      isLocked = flaskData.vreified
       const newState = !isLocked ? "1" : "0";
       const response = await fetch(`${ESP_BASE_URL}/lock/toggle`, {
         method: "POST",
@@ -38,6 +40,9 @@ const Dashboard = () => {
       console.error("Failed to toggle lock:", error);
     }
   };
+
+
+
 
 
   return (
