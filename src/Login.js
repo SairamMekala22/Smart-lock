@@ -132,7 +132,7 @@ function LoginSignup() {
         </div>
       </div>
 
-      <div className="ring">
+      {/* <div className="ring"> */}
         <div className={`login-container ${isFlipped ? "isFlipped" : ""}`}>
           {/* Login Form */}
           <form className="login front" onSubmit={(e) => handleSubmit(e, false)}>
@@ -207,7 +207,7 @@ function LoginSignup() {
             </div>
           </form>
         </div>
-      </div>
+      {/* </div> */}
     </div>
   );
 }

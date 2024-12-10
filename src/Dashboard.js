@@ -38,8 +38,6 @@ const Dashboard = () => {
       console.error("Failed to toggle lock:", error);
     }
   };
-
-
   return (
     <div className="container">
       <div className="sidebar">
@@ -47,6 +45,7 @@ const Dashboard = () => {
           <div className="logo-collapsed"></div>
           <span className="logo-text">SMART SHIELD</span>
         </div>
+        <div class="icon-section">
         <ul className="menu">
           <li>
             <i className="fas fa-home"></i>
@@ -65,13 +64,14 @@ const Dashboard = () => {
             <span className="menu-label">Logout</span>
           </li>
         </ul>
+        </div>
         <div className="sidebar-footer">
           {/* <img
             src=""
             alt="Avatar"
             className="avatar"
           /> */}
-          <span className="username">User name</span>
+          <span className="username"></span>
         </div>
       </div>
       <div className="dashboard-content">
